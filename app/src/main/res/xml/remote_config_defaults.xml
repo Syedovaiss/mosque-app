@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+  <entry>
+    <key>location_map</key>
+    <value>[{"country":"Pakistan","countryId":1,"countryCode":"+92","cities":[{"name":"Karachi","imageUrl":"","cityId":1},{"name":"Lahore","imageUrl":"","cityId":2},{"name":"Islamabad","imageUrl":"","cityId":3}]},{"country":"Canada","countryId":2,"countryCode":"+1","cities":[{"name":"Toronto","imageUrl":"","cityId":1},{"name":"Calgury","imageUrl":"","cityId":2},{"name":"Regina","imageUrl":"","cityId":3}]}]</value>
+  </entry>
+  <entry>
+    <key>ur_app_localization</key>
+    <value>[{"key":"label_username","value":"صارف نام"},{"key":"label_password","value":"پاس ورڈ"},{"key":"placeholder_password","value":"اپنا پاس ورڈ درج کریں"},{"key":"placeholder_username","value":"اپنے یوزر نام کا اندراج کرو"},{"key":"login_button_text","value":"لاگ ان کریں"},{"key":"new_registration_text","value":"اکاؤنٹ نہیں ہے؟ یہاں اندراج کریں"}]</value>
+  </entry>
+  <entry>
+    <key>en_app_localization</key>
+    <value>[{"key":"label_username","value":"Username"},{"key":"label_password","value":"Password"},{"key":"placeholder_password","value":"Enter your password"},{"key":"placeholder_username","value":"Enter your username"},{"key":"login_button_text","value":"Sign In"},{"key":"new_registration_text","value":"Don't have an account? Sign Up"}]</value>
+  </entry>
+</defaults>
