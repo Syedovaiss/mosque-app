@@ -22,6 +22,8 @@ hilt = "2.48"
 lottieCompose = "6.0.1"
 mapsCompose = "4.3.3"
 navigationCompose = "2.7.7"
+playServicesLocation = "21.2.0"
+playServicesMaps = "18.2.0"
 securityCrypto = "1.1.0-alpha06"
 pluginCrashlytics = "2.9.9"
 gms-googleServices = "4.4.1"
@@ -67,6 +69,8 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 
 
 [plugins]

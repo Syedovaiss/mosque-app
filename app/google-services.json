@@ -1,21 +1,22 @@
 {
   "project_info": {
-    "project_number": "530537858705",
-    "project_id": "mosque-app-c22a5",
-    "storage_bucket": "mosque-app-c22a5.appspot.com"
+    "project_number": "602250582966",
+    "firebase_url": "https://ummah-mosque-app-default-rtdb.firebaseio.com",
+    "project_id": "ummah-mosque-app",
+    "storage_bucket": "ummah-mosque-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:530537858705:android:c7bde14e50dbe41a566130",
+        "mobilesdk_app_id": "1:602250582966:android:a60b292926596d78497f17",
         "android_client_info": {
-          "package_name": "com.ovais.mosqueapp"
+          "package_name": "com.ummah.mosque"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBJvqr80xzOn_yCuZDAZ15eoiDKrfF3Vb4"
+          "current_key": "AIzaSyBNNsuA9Raf7ZS3EXt1I0Ubm4VMShUe0dU"
         }
       ],
       "services": {

@@ -8,6 +8,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:name=".app.MosqueApplication"
@@ -30,11 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBPVbxZr9VsF8oEPwh6WSm6YcRpCD3GaFo" />
+
         <meta-data
-            android:name="com.google.android.geo.MY_API_KEY"
-            android:value="AIzaSyBPVbxZr9VsF8oEPwh6WSm6YcRpCD3GaFo"/>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCUjlme0RP_wBpQ-8CB2UKVPEsHwZhMbXI" />
     </application>
 
 </manifest>

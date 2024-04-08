@@ -9,11 +9,11 @@ plugins {
 
 }
 android {
-    namespace 'com.ovais.mosqueapp'
+    namespace 'com.ummah.mosque'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.ovais.mosqueapp"
+        applicationId "com.ummah.mosque"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -23,6 +23,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        resValue "string", "mapTilerKey", "QBkzeMyYJx2EyDBMi6el"
     }
 
     buildTypes {
@@ -96,6 +97,8 @@ dependencies {
     implementation libs.androidx.hilt.navigation.compose
     implementation libs.androidx.navigation.compose
     implementation libs.androidx.datastore.preferences
-    implementation libs.maps.compose
     implementation(libs.firebase.crashlytics.ktx)
+    implementation(libs.maps.compose)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
 }
