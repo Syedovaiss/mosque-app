@@ -3,9 +3,11 @@ package com.ummah.mosque.common.di
 
 import com.ummah.mosque.common.DefaultDispatcherProvider
 import com.ummah.mosque.common.DefaultLocaleManager
+import com.ummah.mosque.common.DefaultPermissionManager
 import com.ummah.mosque.common.DefaultToastManager
 import com.ummah.mosque.common.DispatcherProvider
 import com.ummah.mosque.common.LocaleManager
+import com.ummah.mosque.common.PermissionManager
 import com.ummah.mosque.common.ToastManager
 import com.ummah.mosque.common.datetime.DateTimeManager
 import com.ummah.mosque.common.datetime.DefaultDateTimeManager
@@ -51,6 +53,11 @@ interface CommonModule {
     fun bindsLocaleManager(
         default: DefaultLocaleManager
     ): LocaleManager
+
+    @Binds
+    fun bindPermissionManager(
+        default: DefaultPermissionManager
+    ): PermissionManager
 }
 
 @Module

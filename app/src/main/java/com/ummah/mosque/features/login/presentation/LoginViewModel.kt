@@ -2,6 +2,7 @@ package com.ummah.mosque.features.login.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ummah.mosque.common.PermissionManager
 import com.ummah.mosque.common.ToastManager
 import com.ummah.mosque.common.storage.KEY_IS_LOGGED_IN
 import com.ummah.mosque.common.storage.KEY_USER_ID
@@ -25,8 +26,15 @@ class LoginViewModel @Inject constructor(
     private val passwordValidationUseCase: PasswordValidationUseCase,
     private val toastManager: ToastManager,
     private val loginAuthenticationUseCase: LoginAuthenticationUseCase,
-    private val localStorageManager: LocalStorageManager
+    private val localStorageManager: LocalStorageManager,
+    private val permissionManager: PermissionManager
 ) : ViewModel() {
+    private val _canRequestLocationPermissions by lazy {
+        MutableStateFlow(false)
+    }
+    val canRequestLocationPermissions: StateFlow<Boolean>
+        get() = _canRequestLocationPermissions
+
     private val _isLoading by lazy {
         MutableStateFlow(false)
     }
@@ -72,9 +80,24 @@ class LoginViewModel @Inject constructor(
             localStorageManager.putBoolean(KEY_IS_LOGGED_IN, true)
             localStorageManager.putString(KEY_USER_ID, userId)
             _isLoading.value = false
-            _isLoginSuccess.value = true
+            validateLocationPermissions()
         }
 
+    }
+
+    private fun validateLocationPermissions() {
+        if (permissionManager.isLocationAllowed) {
+            _isLoginSuccess.value = true
+        } else {
+            requestPermissions()
+        }
+    }
+    fun onLocationPermissionGranted() {
+        _isLoginSuccess.value = true
+    }
+
+    private fun requestPermissions() {
+        _canRequestLocationPermissions.value = true
     }
 
     private fun showToast(message: String) {

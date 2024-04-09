@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ummah.mosque.app.navigation.AuthScreen
 import com.ummah.mosque.app.navigation.HomeScreen
+import com.ummah.mosque.common.PermissionManager
 import com.ummah.mosque.common.storage.LocalStorageManager
 import com.ummah.mosque.common.utils.default
 import com.ummah.mosque.events.AppEvents
@@ -24,9 +25,15 @@ class SplashViewModel @Inject constructor(
     private val getLocationMapUseCase: GetLocationMapUseCase,
     private val localStorageManager: LocalStorageManager,
     private val getLocalizationUseCase: GetLocalizationUseCase,
-    private val firebaseAnalyticsManager: FirebaseAnalyticsManager
+    private val firebaseAnalyticsManager: FirebaseAnalyticsManager,
+    private val permissionManager: PermissionManager
 ) : ViewModel() {
 
+    private val _canRequestLocationPermissions by lazy {
+        MutableStateFlow(false)
+    }
+    val canRequestLocationPermissions: StateFlow<Boolean>
+        get() = _canRequestLocationPermissions
     private companion object {
         private const val LOCATION_MAP = "location_map"
         private const val LOCALIZATION = "localization"
@@ -58,11 +65,19 @@ class SplashViewModel @Inject constructor(
         }
     }
 
+    private fun validateLocationPermissions() {
+        if (permissionManager.isLocationAllowed) {
+            _nextDestination.value = HomeScreen.Home.routeId
+        } else {
+            _canRequestLocationPermissions.value = true
+        }
+    }
+
     private fun navigateToNextDestination() {
         viewModelScope.launch {
             localStorageManager.isLoggedIn().collectLatest { isLoggedIn ->
                 if (isLoggedIn.default()) {
-                    _nextDestination.value = HomeScreen.Home.routeId
+                    validateLocationPermissions()
                 } else {
                     _nextDestination.value = AuthScreen.Login.routeId
                 }
@@ -79,5 +94,9 @@ class SplashViewModel @Inject constructor(
                 fetchLocalization()
             }
         }
+    }
+
+    fun onLocationPermissionGranted() {
+        _nextDestination.value = HomeScreen.Home.routeId
     }
 }
