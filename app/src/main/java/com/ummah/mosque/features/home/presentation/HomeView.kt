@@ -1,75 +1,114 @@
 package com.ummah.mosque.features.home.presentation
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerState
-import com.google.maps.android.compose.rememberCameraPositionState
 import com.ummah.mosque.R
+import com.ummah.mosque.app.ui.theme.backgroundColor
+import com.ummah.mosque.common.composables.AutoScrollingCarousel
+import com.ummah.mosque.common.composables.ScreenLoader
 
 
 @Composable
 fun HomeView(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onCreateMosque: () -> Unit,
+    onProfileClick: () -> Unit
 ) {
-    val context = LocalContext.current
-    Column(modifier = Modifier.fillMaxSize()) {
-        val mapSettings by viewModel.mapSettings.collectAsStateWithLifecycle()
-        val currentLocation = viewModel.currentLocation.collectAsStateWithLifecycle()
-        mapSettings?.let { mosqueSetting ->
-            currentLocation.value?.let { info ->
-                val singapore = LatLng(info.lat, info.lng)
-                val cameraPositionState = rememberCameraPositionState {
-                    position =
-                        CameraPosition.fromLatLngZoom(singapore, mosqueSetting.zoomLevel)
-                }
-                val uiSettings by remember { mutableStateOf(mosqueSetting.settings) }
-                val properties by remember {
-                    mutableStateOf(
-                        MapProperties(
-                            mapType = mosqueSetting.mapType,
-                            mapStyleOptions = MapStyleOptions.loadRawResourceStyle(
-                                context,
-                                R.raw.map_dark_mode
-                            )
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+    val carouselItems by viewModel.carouselItems.collectAsStateWithLifecycle()
+    val availableMosques by viewModel.mosqueItems.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor)
+            .verticalScroll(scrollState)
+    ) {
+        if (isLoading) {
+            ScreenLoader()
+        } else {
+            if (carouselItems.isNotEmpty()) {
+                AutoScrollingCarousel(
+                    items = carouselItems,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            vertical = 16.dp
                         )
-                    )
-                }
-                GoogleMap(
-                    modifier = Modifier.fillMaxSize(),
-                    cameraPositionState = cameraPositionState,
-                    properties = properties,
-                    uiSettings = uiSettings
-                ) {
-                    Marker(
-                        state = MarkerState(position = singapore),
-                        title = if (mosqueSetting.titleEnabled) "Singapore" else null,
-                        snippet = if (mosqueSetting.titleEnabled) "Marker In Singapore" else null
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = null
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = 16.dp,
+                        horizontal = 32.dp
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                RoundedCardView(
+                    modifier = Modifier
+                        .width(150.dp)
+                        .height(150.dp),
+                    title = "Create Mosque",
+                    icon = R.drawable.create_mosque
+                )
+
+                RoundedCardView(
+                    modifier = Modifier
+                        .width(150.dp)
+                        .height(150.dp),
+                    title = "Profile",
+                    icon = R.drawable.profile
+                )
+            }
+            if (availableMosques.isNotEmpty()) {
+                availableMosques.forEach {
+                    MosqueDetailItem(
+                        onDeleteMosque = { },
+                        onEditMosque = {
+
+                        },
+                        onGetDirections = {
+
+                        }
                     )
                 }
             }
-
         }
     }
-
 }
 
 @Preview
 @Composable
 private fun HomePreview() {
-    HomeView()
+    HomeView(
+        onCreateMosque = {},
+        onProfileClick = {}
+    )
 }

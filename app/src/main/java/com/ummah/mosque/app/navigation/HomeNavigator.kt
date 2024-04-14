@@ -17,7 +17,14 @@ object HomeNavigator {
     ) {
         NavHost(navController = navController, startDestination = startDestination) {
             composable(route = HomeScreen.Home.routeId) {
-                HomeView()
+                HomeView(
+                    onProfileClick =  {
+
+                    },
+                    onCreateMosque = {
+
+                    }
+                )
             }
         }
     }
