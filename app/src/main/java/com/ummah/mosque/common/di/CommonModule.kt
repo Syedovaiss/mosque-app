@@ -1,13 +1,19 @@
 package com.ummah.mosque.common.di
 
 
+import com.ummah.mosque.common.AppLogger
+import com.ummah.mosque.common.DefaultAppLogger
 import com.ummah.mosque.common.DefaultDispatcherProvider
 import com.ummah.mosque.common.DefaultLocaleManager
+import com.ummah.mosque.common.DefaultNetworkConnectivityProvider
+import com.ummah.mosque.common.DefaultNetworkManager
 import com.ummah.mosque.common.DefaultPermissionManager
 import com.ummah.mosque.common.DefaultScopeProvider
 import com.ummah.mosque.common.DefaultToastManager
 import com.ummah.mosque.common.DispatcherProvider
 import com.ummah.mosque.common.LocaleManager
+import com.ummah.mosque.common.NetworkConnectivityProvider
+import com.ummah.mosque.common.NetworkManager
 import com.ummah.mosque.common.PermissionManager
 import com.ummah.mosque.common.ScopeProvider
 import com.ummah.mosque.common.ToastManager
@@ -65,6 +71,11 @@ interface CommonModule {
     fun bindScopeProvider(
         default: DefaultScopeProvider
     ): ScopeProvider
+
+    @Binds
+    fun bindAppLogger(
+        default: DefaultAppLogger
+    ): AppLogger
 }
 
 @Module
@@ -80,10 +91,22 @@ class CommonProviderModule() {
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface StorageModule {
+interface CommonSingletonModule {
     @Binds
     @Singleton
     fun bindLocalStorageManager(
         default: DefaultLocalStorageManager
     ): LocalStorageManager
+
+    @Binds
+    @Singleton
+    fun bindNetworkConnectivityProvider(
+        default: DefaultNetworkConnectivityProvider
+    ): NetworkConnectivityProvider
+
+    @Binds
+    @Singleton
+    fun bindNetworkManager(
+        default: DefaultNetworkManager
+    ): NetworkManager
 }

@@ -2,11 +2,13 @@ package com.ummah.mosque.firebase.di
 
 import com.ummah.mosque.firebase.DefaultFirebaseAnalyticsManager
 import com.ummah.mosque.firebase.DefaultFirebaseFireStoreManager
+import com.ummah.mosque.firebase.DefaultFirebaseLoggingService
 import com.ummah.mosque.firebase.DefaultFirebaseRealTimeDatabaseManager
 import com.ummah.mosque.firebase.DefaultFirebaseStorageManager
 import com.ummah.mosque.firebase.DefaultRemoteConfigurationManager
 import com.ummah.mosque.firebase.FirebaseAnalyticsManager
 import com.ummah.mosque.firebase.FirebaseFireStoreManager
+import com.ummah.mosque.firebase.FirebaseLoggingService
 import com.ummah.mosque.firebase.FirebaseRealTimeDatabaseManager
 import com.ummah.mosque.firebase.FirebaseStorageManager
 import com.ummah.mosque.firebase.RemoteConfigurationManager
@@ -49,4 +51,10 @@ interface FirebaseModule {
     fun bindStorageManager(
         default: DefaultFirebaseStorageManager
     ): FirebaseStorageManager
+
+    @Binds
+    @Singleton
+    fun bindFirebaseLoggingService(
+        default: DefaultFirebaseLoggingService
+    ): FirebaseLoggingService
 }

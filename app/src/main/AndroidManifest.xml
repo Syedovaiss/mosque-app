@@ -24,7 +24,7 @@
         android:theme="@style/Theme.MosqueApp"
         tools:targetApi="31">
         <activity
-            android:name=".core.presentation.MainActivity"
+            android:name=".core.presentation.MosqueActivity"
             android:exported="true"
             android:theme="@style/Theme.RemoveSplashScreenTheme">
             <intent-filter>

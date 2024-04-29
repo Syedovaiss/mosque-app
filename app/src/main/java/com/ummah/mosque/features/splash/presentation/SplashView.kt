@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -21,12 +22,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ummah.mosque.R
-import com.ummah.mosque.app.ui.theme.backgroundColor
+import com.ummah.mosque.app.ui.theme.appGradient
 
 
 @Composable
 fun SplashView(
-    onNextDestination:  @Composable (String) -> Unit,
+    onNextDestination: @Composable (String) -> Unit,
     viewModel: SplashViewModel = hiltViewModel()
 ) {
     val nextDestination by viewModel.nextDestination.collectAsStateWithLifecycle()
@@ -51,18 +52,24 @@ fun SplashView(
             openAppSettings()
         }
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(backgroundColor),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.splash_logo),
-            contentDescription = null,
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = appGradient),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.splash_mosque),
+                contentDescription = null
+            )
+        }
+
     }
+
     nextDestination?.let { route ->
         onNextDestination(route)
     }
